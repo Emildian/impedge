@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impedge - Yeni Nesil Topaç Arenası</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <div class="player-profile">
+            <div class="profile-info">Lv. <span id="ui-level">1</span> | XP: <span id="ui-xp">0 / 200</span> | Altın: <span id="ui-gold" style="color: #ffd700; text-shadow: 0 0 5px #ffd700;">0</span></div>
+            <div class="profile-boxes">Kutu: <span id="ui-boxes">0</span> 
+                <button id="btn-open-box" class="btn icon-btn" style="padding: 2px 8px; font-size: 0.8rem; margin-left:5px;">AÇ</button>
+                <button id="btn-buy-box" class="btn icon-btn" style="padding: 2px 8px; font-size: 0.8rem; margin-left:5px; color:#ffd700; border-color:#ffd700;">AL (500 A)</button>
+            </div>
+        </div>
+
+        <!-- Main Menu -->
+        <div id="main-menu" class="screen active">
+            <div class="logo-container">
+                <h1 class="glitch-text" data-text="IMPEDGE">IMPEDGE</h1>
+                <p class="subtitle">Yeni Nesil Topaç Arenası</p>
+            </div>
+            
+            <div class="mode-selector">
+                <label><input type="radio" name="gameMode" value="IEW" checked> IEW (Normal Mod)</label>
+                <label><input type="radio" name="gameMode" value="HEW" id="radio-hew"> HEW (Hyper Mod - Lv5+)</label>
+            </div>
+
+            <div class="menu-buttons" style="display:flex; flex-direction:column; gap:10px; align-items:center;">
+                <div style="display:flex; gap:20px;">
+                    <button id="btn-arena" class="btn primary-btn">ARENAYA GİR (1P)</button>
+                    <button id="btn-shop" class="btn secondary-btn">MAĞAZA (EDGELER)</button>
+                </div>
+                <button id="btn-2p-lobby" class="btn icon-btn" style="border-color:#00ff00; color:#00ff00; width:100%; max-width:460px;">2 KİŞİLİK YEREL OYNA (2P)</button>
+            </div>
+            <div class="selected-top-info">
+                Seçili Edge: <span id="current-top-name">Topç</span>
+            </div>
+        </div>
+
+        <!-- 2P Lobby Screen -->
+        <div id="lobby-2p-screen" class="screen" style="align-items:center;">
+            <h2 style="font-size:2rem; margin-bottom:20px; color:var(--primary); font-family:'Orbitron', sans-serif;">2 KİŞİLİK YEREL LOBİ</h2>
+            <div style="display:flex; gap:50px; background:var(--bg-panel); padding:20px; border-radius:10px; border:1px solid #fff;">
+                <div id="p1-setup" style="text-align:left;">
+                    <h3 style="color:#00f0ff;">Oyuncu 1 (Sol)</h3>
+                    <p>Topaç Seç:</p> <select id="p1-top-select" style="background:#222; color:#fff; padding:5px; margin-bottom:10px; width:100%;"></select><br>
+                    <label><input type="checkbox" id="p1-hyper"> HyperEdge Yap (HEW)</label><br>
+                    <label><input type="checkbox" id="p1-tasarruf"> Tasarruf Modu</label><br>
+                    <label><input type="checkbox" id="p1-combo"> Seri Vuruş</label><br>
+                    <p style="margin-top:5px;">Toplayıcı:</p> 
+                    <select id="p1-toplayici" style="background:#222; color:#fff; padding:5px; width:100%;">
+                        <option value="0">Yok</option><option value="1">Seviye 1</option><option value="2">Seviye 2</option><option value="3">Seviye 3</option>
+                    </select>
+                </div>
+                <div id="p2-setup" style="text-align:left;">
+                    <h3 style="color:#ff0055;">Oyuncu 2 (Sağ)</h3>
+                    <p>Topaç Seç:</p> <select id="p2-top-select" style="background:#222; color:#fff; padding:5px; margin-bottom:10px; width:100%;"></select><br>
+                    <label><input type="checkbox" id="p2-hyper"> HyperEdge Yap (HEW)</label><br>
+                    <label><input type="checkbox" id="p2-tasarruf"> Tasarruf Modu</label><br>
+                    <label><input type="checkbox" id="p2-combo"> Seri Vuruş</label><br>
+                    <p style="margin-top:5px;">Toplayıcı:</p> 
+                    <select id="p2-toplayici" style="background:#222; color:#fff; padding:5px; width:100%;">
+                        <option value="0">Yok</option><option value="1">Seviye 1</option><option value="2">Seviye 2</option><option value="3">Seviye 3</option>
+                    </select>
+                </div>
+            </div>
+            <div style="margin-top:20px; text-align:center;">
+                <p>Arena Modu:</p>
+                <select id="lobby-mode" style="background:#222; color:#fff; padding:10px; font-size:1.2rem; margin-bottom:20px;">
+                    <option value="IEW">IEW (Normal)</option>
+                    <option value="HEW">HEW (Hyper - Yükseltmeler Aktif)</option>
+                </select>
+                <br>
+                <button id="btn-start-2p" class="btn primary-btn">SAVAŞI BAŞLAT</button>
+                <button id="btn-back-2p" class="btn icon-btn" style="margin-left:10px;">Geri</button>
+            </div>
+        </div>
+
+        <!-- Shop Screen -->
+        <div id="shop-screen" class="screen">
+            <header>
+                <h2>EDGE MAĞAZASI</h2>
+                <button id="btn-back-shop" class="btn icon-btn">Geri</button>
+            </header>
+            <div class="shop-grid" id="shop-grid">
+                <!-- Shop items injected via JS -->
+            </div>
+        </div>
+
+        <!-- Arena Screen -->
+        <div id="arena-screen" class="screen">
+            <header class="arena-header" style="margin-top: 50px;">
+                <div class="player-score">SEN: <span id="player-score">0</span>P</div>
+                <h2>ARENA (<span id="arena-mode-text">IEW</span>)</h2>
+                <div class="bot-score">BOT: <span id="bot-score">0</span>P</div>
+            </header>
+            
+            <div class="battle-ground">
+                <div class="arena-circle">
+                    <div class="arena-ropes"></div>
+                    <div id="player-top" class="spinning-top">
+                        <div class="top-visual"></div>
+                        <div class="top-name">Player</div>
+                        <div class="top-stats">
+                            <div class="energy-bar-container">
+                                <div id="player-energy-bar" class="energy-bar"></div>
+                            </div>
+                            <span id="player-energy-text">0</span>
+                        </div>
+                    </div>
+                    
+                    <div id="bot-top" class="spinning-top">
+                        <div class="top-visual"></div>
+                        <div class="top-name">Bot</div>
+                        <div class="top-stats">
+                            <div class="energy-bar-container">
+                                <div id="bot-energy-bar" class="energy-bar"></div>
+                            </div>
+                            <span id="bot-energy-text">0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="clash-effect" id="clash-effect"></div>
+                </div>
+            </div>
+
+            <div class="battle-log" id="battle-log">
+                Savaş başlıyor...
+            </div>
+
+            <div class="action-panels-container" style="display:flex; justify-content:space-between; width:100%; margin-top:10px; gap: 20px;">
+                <!-- P1 Panel -->
+                <div id="action-panel-p1" class="action-panel" style="flex:1; justify-content:center;">
+                    <h4 style="width:100%; text-align:center; margin-bottom:5px; color:#00f0ff;">1P (Tuş: Space, 1, 2, 3, 4, 5)</h4>
+                    <button class="action-btn" data-action="attack" data-player="player">Normal (Space)<br><span>(10 E)</span></button>
+                    <button class="action-btn" data-action="rush" data-player="player">Rush (1)<br><span>(25 E)</span> <span class="cd-text"></span></button>
+                    <button class="action-btn" data-action="legendary-rush" data-player="player">Leg.Rush (2)<br><span>(50 E)</span> <span class="cd-text"></span></button>
+                    <button class="action-btn" data-action="ultimate-rush" data-player="player">Ult.Rush (3)<br><span>(100 E)</span> <span class="cd-text"></span></button>
+                    <button class="action-btn special-btn" data-action="special" data-player="player"><span id="spec-name-p1">Özel (4)</span><br><span id="spec-desc-p1" style="font-size:0.7rem;">(150 E)</span> <span class="cd-text"></span></button>
+                    <button class="action-btn hidden" data-action="combo" id="btn-combo-p1" data-player="player" style="border-color: #ff00ff; color: #ff00ff;">Seri Vuruş (5)<br><span>(10 E)</span> <span class="cd-text"></span></button>
+                </div>
+            
+                <!-- P2 Panel -->
+                <div id="action-panel-p2" class="action-panel hidden" style="flex:1; justify-content:center;">
+                    <h4 style="width:100%; text-align:center; margin-bottom:5px; color:#ff0055;">2P (Tuş: Enter, Sol, Alt, Sağ, Üst, Shift)</h4>
+                    <button class="action-btn" data-action="attack" data-player="bot">Normal (Enter)<br><span>(10 E)</span></button>
+                    <button class="action-btn" data-action="rush" data-player="bot">Rush (Sol)<br><span>(25 E)</span> <span class="cd-text"></span></button>
+                    <button class="action-btn" data-action="legendary-rush" data-player="bot">Leg.Rush (Alt)<br><span>(50 E)</span> <span class="cd-text"></span></button>
+                    <button class="action-btn" data-action="ultimate-rush" data-player="bot">Ult.Rush (Sağ)<br><span>(100 E)</span> <span class="cd-text"></span></button>
+                    <button class="action-btn special-btn" data-action="special" data-player="bot"><span id="spec-name-p2">Özel (Üst)</span><br><span id="spec-desc-p2" style="font-size:0.7rem;">(150 E)</span> <span class="cd-text"></span></button>
+                    <button class="action-btn hidden" data-action="combo" id="btn-combo-p2" data-player="bot" style="border-color: #ff00ff; color: #ff00ff;">Seri Vuruş (Shift)<br><span>(10 E)</span> <span class="cd-text"></span></button>
+                </div>
+            </div>
+            
+            <div id="round-end-modal" class="modal hidden">
+                <div class="modal-content">
+                    <h3 id="round-result-title">Raunt Bitti</h3>
+                    <p id="round-result-desc">Rakip arenadan çıktı! (+2P)</p>
+                    <button id="btn-next-round" class="btn primary-btn">Sonraki Raunt</button>
+                </div>
+            </div>
+
+            <div id="match-end-modal" class="modal hidden">
+                <div class="modal-content">
+                    <h3 id="match-result-title">Maç Bitti</h3>
+                    <p id="match-result-xp">XP Kazanıldı!</p>
+                    <button id="btn-back-menu" class="btn primary-btn">Ana Menü</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upgrade Modal -->
+        <div id="upgrade-modal" class="modal hidden">
+            <div class="modal-content" style="width: 400px;">
+                <h3 id="upg-title">Geliştirmeler</h3>
+                <p id="upg-desc" style="font-size: 0.9rem; margin-bottom: 20px;">Geliştirmeler sadece HEW modunda çalışır.</p>
+                <div id="upg-options" style="display:flex; flex-direction:column; gap:10px;">
+                    <!-- options injected -->
+                </div>
+                <button class="btn secondary-btn" style="margin-top:20px;" onclick="closeUpgradeModal()">Kapat</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
